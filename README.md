@@ -33,3 +33,9 @@ Enter selection (default: junit) [1..3] 1
 Project name (default: study-webdb-java):
 Source package (default: study.webdb.java): com.github.tkmtmkt.study
 ```
+
+### データベースマイグレーション
+
+```sh
+$ ./gradlew flywayMigrate
+```
