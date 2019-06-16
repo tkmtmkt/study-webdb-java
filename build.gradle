@@ -18,8 +18,12 @@ plugins {
   // Apply the application plugin to add support for building an application
   id 'application'
 
-  id "org.flywaydb.flyway" version "5.2.4"
+  id 'org.flywaydb.flyway' version '5.2.4'
+  id 'com.gradle.build-scan' version '2.3'
+  id 'org.springframework.boot' version '2.1.5.RELEASE'
 }
+
+apply plugin: 'io.spring.dependency-management'
 
 flyway {
   url = 'jdbc:h2:file:~/db/foobar'
@@ -38,7 +42,26 @@ dependencies {
 
   // Use JUnit test framework
   testImplementation 'junit:junit:4.12'
+
+  // Spring framework
+  implementation 'org.springframework.boot:spring-boot-dependencies:2.0.5.RELEASE'
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  components {
+    withModule('org.springframework:spring-beans') {
+      allVariants {
+        withDependencyConstraints {
+          it.findAll { it.name == 'snakeyaml' }.each { it.version { strictly '1.19' } }
+        }
+      }
+    }
+  }
 }
 
 // Define the main class for the application
 mainClassName = 'com.github.tkmtmkt.study.App'
+
+bootJar {
+  mainClassName = 'com.github.tkmtmkt.study.App'
+}

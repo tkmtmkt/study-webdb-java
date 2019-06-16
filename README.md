@@ -39,3 +39,10 @@ Source package (default: study.webdb.java): com.github.tkmtmkt.study
 ```sh
 $ ./gradlew flywayMigrate
 ```
+
+### Spring boot
+
+```sh
+$ ./gradlew bootJar
+$ ./gradlew bootRun
+```
